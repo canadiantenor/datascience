@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap">
+<style>body{margin:0;padding:18px;background:#120e1d;color:#e8c07a;font-family:Cinzel,serif}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.row svg{width:132px;height:156px;border:2px solid #2c2338;border-radius:6px;display:block}
+.sm svg{width:64px;height:76px}
+.bw{filter:grayscale(1)}
+.sil svg{filter:brightness(0)}
+h3{font-size:13px;letter-spacing:.1em;margin:0 0 6px}</style></head><body>
+<h3>FULL SIZE</h3><div class="row" id="a"></div>
+<h3>24MM · GREYSCALE · SILHOUETTE</h3><div class="row sm" id="b"></div>
+<div class="row sm bw" id="c"></div><div class="row sm sil" id="d"></div>
+<script src="portrait-engine.js"></script><script src="roster.js"></script>
+<script>
+const h=ROSTER.map(r=>figure(r.art)).join('');
+a.innerHTML=h;b.innerHTML=h;c.innerHTML=h;d.innerHTML=h;
+</script></body></html>

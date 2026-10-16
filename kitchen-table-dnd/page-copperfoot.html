@@ -1,0 +1,387 @@
+<title>The Mother of Copperfoot</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Spectral:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap">
+<style>
+/* Single committed theme: torchlit stone. Layout: loot rules, branching map, four floors, the deck. */
+:root{
+  --bg:#0d0a16; --panel:#1a1427; --panel2:#221a32; --edge:#342744; --ink:#efe4d0; --dim:#a697bb;
+  --gold:#e8b14a; --fire:#e07a4a; --moss:#8fd9b4; --sky:#7fb2e8; --rose:#ef6a7a;
+  --disp:"Cinzel","Palatino Linotype",serif; --body:"Spectral",Georgia,serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+ background-image:radial-gradient(ellipse at 18% -5%,rgba(232,177,74,.13),transparent 58%),
+  radial-gradient(ellipse at 92% 8%,rgba(127,178,232,.07),transparent 50%)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:26px 64px;display:flex;flex-direction:column;gap:34px}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:700;line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(36px,8.4vw,62px);letter-spacing:.01em}
+h2{font-size:clamp(24px,4.6vw,32px)}
+h3{font-size:21px}
+p{margin:0}
+a{color:var(--gold)}
+.lab{font-family:var(--disp);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.dim{color:var(--dim)}
+.stack{display:flex;flex-direction:column;gap:14px}
+.rule{border:0;border-top:1px solid var(--edge);margin:0}
+.mast{display:grid;gap:13px;padding-bottom:22px;border-bottom:2px solid var(--edge)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14.5px;color:var(--dim)}
+.meta b{color:var(--ink)}
+.lede{font-size:19px;max-width:62ch}
+.card{background:var(--panel);border:1px solid var(--edge);border-radius:7px;padding:17px;display:grid;gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px}
+.mini{background:var(--panel2);border:1px solid var(--edge);border-radius:5px;padding:12px 13px;display:grid;gap:5px}
+.mini b{font-family:var(--disp);font-size:16px}
+.mini p{font-size:14.5px;line-height:1.42}
+.say{background:linear-gradient(170deg,#241a33,#17112450);border:1px solid var(--edge);
+ border-left:5px solid var(--gold);border-radius:4px;padding:15px 17px;font-style:italic;font-size:17.5px}
+.say p+p{margin-top:10px}
+.say .tg{display:block;font-style:normal;font-family:var(--disp);font-size:11px;letter-spacing:.18em;
+ text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.dmn{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start;font-size:16px}
+.pip{font-family:var(--disp);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;
+ border-radius:3px;white-space:nowrap;margin-top:3px;color:#120d1c;background:var(--gold)}
+.pip.f{background:var(--fire);color:#1a0d08}.pip.m{background:var(--moss)}.pip.s{background:var(--sky)}
+ul.plain{margin:0;padding-left:20px;display:grid;gap:8px}
+.floor{display:grid;gap:14px}
+.fh{display:flex;flex-wrap:wrap;gap:11px;align-items:baseline;border-bottom:1px solid var(--edge);padding-bottom:9px}
+.fn{font-family:var(--disp);font-size:13px;letter-spacing:.2em;color:var(--gold)}
+.fork{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px}
+.path{background:var(--panel2);border:1px solid var(--edge);border-top:3px solid var(--fire);border-radius:6px;padding:14px;display:grid;gap:8px}
+.path.safe{border-top-color:var(--moss)}
+.path h4{font-size:18px}
+.path .pr{font-size:13.5px;color:var(--gold);font-family:var(--disp);letter-spacing:.06em}
+/* map */
+.mapwrap{border:1px solid var(--edge);border-radius:7px;overflow:hidden;background:#140f22;display:grid;place-items:center}
+.mapwrap svg{display:block;width:100%;max-width:430px;height:auto}
+/* treasure cards */
+.tc{width:100%;border-radius:11px;padding:3px;position:relative;
+ background:linear-gradient(150deg,#6b5a46,#2a2235 40%,#3c3148 70%,#6b5a46);
+ box-shadow:0 0 0 2px #0b0814,0 0 15px -2px var(--gl),0 9px 20px rgba(0,0,0,.6)}
+.tc.common{--gl:#7f8f6a}.tc.rare{--gl:#5f8fc9}.tc.epic{--gl:#d9a441}.tc.relic{--gl:#c0552f}
+.tcin{background:#181223;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;height:100%}
+.art{position:relative;border-bottom:2px solid #0b0814}
+.art>svg{display:block;width:100%;height:auto}
+.arch{position:absolute;inset:0;width:100%;height:100%}
+.gem{position:absolute;top:7px;left:7px;width:23px;height:23px;transform:rotate(45deg);
+ background:linear-gradient(140deg,var(--gl),#1b1526);border:2px solid #0b0814;border-radius:4px;box-shadow:0 0 9px var(--gl)}
+.gem span{position:absolute;inset:3px 9px 9px 3px;background:rgba(255,255,255,.5);border-radius:2px}
+.ban{position:absolute;left:0;right:0;bottom:0;padding:17px 10px 6px;
+ background:linear-gradient(transparent,rgba(9,6,16,.94) 48%)}
+.ban h4{margin:0;font-size:15px;line-height:1.14;color:#f5e6c6;text-shadow:0 2px 7px #000}
+.txt{padding:9px 11px 7px;display:flex;flex-direction:column;gap:5px;flex:1;
+ background:linear-gradient(#20192f,#171224)}
+.eff{margin:0;font-size:12.6px;line-height:1.35}
+.fl{margin:0;font-size:11px;font-style:italic;color:var(--dim);line-height:1.3}
+.rar{font-family:var(--disp);font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+ padding:4px 11px 6px;color:var(--gl);border-top:1px solid #2c2338;background:#110c1d}
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:15px}
+/* draw table */
+.table{background:var(--panel);border:1px solid var(--edge);border-radius:8px;padding:17px;display:grid;gap:14px}
+.btns{display:flex;flex-wrap:wrap;gap:9px}
+button{font-family:var(--disp);font-size:13.5px;letter-spacing:.06em;color:var(--ink);background:var(--panel2);
+ border:1px solid var(--edge);border-radius:5px;padding:9px 14px;cursor:pointer}
+button:hover{border-color:var(--gold);color:var(--gold)}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+button.go{background:linear-gradient(#5e4216,#3a2a0e);border-color:var(--gold);color:#ffe9b8}
+.offer{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:14px}
+.pickme{cursor:pointer;transition:transform .12s}
+.pickme:hover{transform:translateY(-5px)}
+.loot{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px}
+.lootrow{background:var(--panel2);border:1px solid var(--edge);border-radius:5px;padding:9px 11px;display:grid;gap:3px}
+.lootrow b{font-family:var(--disp);font-size:14px}
+.lootrow span{font-size:11.5px;color:var(--dim)}
+.lootrow.relic{border-color:#c0552f}
+/* stat blocks */
+.sb{background:var(--panel);border:1px solid var(--edge);border-top:3px solid var(--fire);border-radius:7px;overflow:hidden}
+.sb.ally{border-top-color:var(--moss)}.sb.boss{border-top-color:var(--rose)}.sb.elite{border-top-color:var(--gold)}
+.sbt{display:grid;grid-template-columns:92px 1fr;gap:14px;padding:14px 16px;align-items:start}
+.sbt>svg{width:92px;height:109px;border:1px solid var(--edge);border-radius:4px;display:block}
+.sbn{font-family:var(--disp);font-size:23px;line-height:1.05}
+.sbr{font-size:14.5px;color:var(--dim);font-style:italic}
+.nums{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:7px;font-size:15.5px;align-items:center}
+.nums b{font-family:var(--disp);font-size:18px}
+.hpc{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.hpc button{width:19px;height:19px;border-radius:50%;padding:0;border:2px solid var(--edge);background:var(--panel2)}
+.hpc button[aria-pressed="true"]{background:var(--fire);border-color:var(--fire)}
+.hpc .half{width:3px;height:17px;background:var(--gold);border-radius:2px}
+.sbrows{padding:0 16px 13px;display:grid;gap:9px;font-size:15.5px;line-height:1.45}
+.sbnote{background:var(--panel2);border-top:1px solid var(--edge);padding:12px 16px;font-size:15px;line-height:1.45;color:var(--dim)}
+.sbnote b{color:var(--ink);font-family:var(--disp)}
+/* roster */
+.ros{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px}
+.hero{background:var(--panel);border:1px solid var(--edge);border-radius:7px;overflow:hidden;display:grid;align-content:start}
+.hero>svg{width:100%;height:auto;display:block;border-bottom:1px solid var(--edge)}
+.hb{padding:12px 13px 14px;display:grid;gap:6px}
+.hn{font-family:var(--disp);font-size:19px;line-height:1.08}
+.hc{font-size:13.5px;color:var(--dim)}
+.hc em{font-style:normal;color:var(--gold)}
+.hs{display:flex;gap:13px;font-size:14px;font-family:var(--disp)}
+.hm{font-size:13.5px;line-height:1.38}
+.new{display:inline-block;font-family:var(--disp);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+ background:var(--moss);color:#0d0a16;padding:2px 7px;border-radius:3px;vertical-align:middle}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+ <header class="mast">
+  <span class="lab">Kitchen table D&amp;D · adventure two</span>
+  <h1>The Mother of Copperfoot</h1>
+  <p class="lede">Clink is gone, the mountain has opened, and something with a wingspan the width of the valley wants a word. Two routes down, a locked door that opens for a sound, one risky door and one safe one, and thirty pieces of treasure to fight over.</p>
+  <div class="meta"><span>Ages <b>6–8</b></span><span><b>1–3</b> kids plus a Dungeon Master</span><span><b>70–90</b> minutes</span><span>Level <b>2</b></span><span>Sequel to <a href="https://claude.ai/artifact/B1i3CthdwCpCCmeUHnLWyj">The Bell of Barleybrook</a></span></div>
+ </header>
+
+ <section class="card">
+  <span class="lab">The new thing</span>
+  <h2>Treasure you choose</h2>
+  <p>Last time the treasure sat in a room and you handed it over. This time it works like a card game: <b>after every fight, deal three cards face up and let them keep one.</b> The choosing is the fun. Give them the whole thirty-second argument about which one to take — that argument <i>is</i> the reward.</p>
+  <div class="grid2">
+   <div class="mini"><b>After a fight</b><p>Deal <b>3 Common</b> cards. Keep one. The rest go back.</p></div>
+   <div class="mini"><b>A chest</b><p>Deal <b>3 Rare</b> cards. Keep one.</p></div>
+   <div class="mini"><b>Beat an elite</b><p>Deal <b>2 Legendary</b> cards. Keep one. This is why you fight it.</p></div>
+   <div class="mini"><b>Beat the boss</b><p>You get a <b>Relic</b> — and relics are <i>never</i> used up. They work in every adventure you ever play.</p></div>
+  </div>
+  <hr class="rule">
+  <div class="dmn"><span class="pip">Keep the relic row</span><span>Lay relic cards face up in front of the player and leave them there between sessions. A kid who has three relics on the table is a kid who remembers the three adventures they came from.</span></div>
+ </section>
+
+ <section class="stack">
+  <span class="lab">Deal three, keep one</span>
+  <h2>Try it now</h2>
+  <p class="dim">This is the real deck. Tap a button, then tap the card you want — it goes to your loot.</p>
+  <div class="table">
+   <div class="btns">
+    <button class="go" data-r="common" data-n="3">Deal 3 Common</button>
+    <button data-r="rare" data-n="3">Chest: 3 Rare</button>
+    <button data-r="epic" data-n="2">Elite: 2 Legendary</button>
+    <button data-r="relic" data-n="1">Boss: take a Relic</button>
+    <button id="clear">Clear the table</button>
+   </div>
+   <div class="offer" id="offer"></div>
+   <div><span class="lab">Your loot</span><div class="loot" id="loot" style="margin-top:9px"></div></div>
+  </div>
+ </section>
+
+ <section class="stack">
+  <span class="lab">The route</span>
+  <h2>Down into Copperfoot</h2>
+  <div class="mapwrap" id="map"></div>
+  <p class="dim">Two ways down, then one locked door, then a choice that actually costs something. Show them this map and let them point.</p>
+ </section>
+
+ <section class="stack">
+  <h2>How it starts</h2>
+  <div class="say"><span class="tg">Read aloud</span>
+   <p>Three weeks of singing lessons. Every evening, on the roof of the bell tower, a small copper dragon and whoever would sit with him, going through the same six notes until he got them right. He got them right on Tuesday.</p>
+   <p>On Wednesday night the moon went out. Something crossed it — slowly, the way only something enormous can. The bell tower has claw marks in it now, the width of doors. There is a crack in the side of Copperfoot that was not there yesterday, with green light coming out of it.</p>
+   <p>And Clink is gone.</p>
+  </div>
+  <div class="dmn"><span class="pip">Then ask</span><span>"He was learning to sing because of you. What do you say to the people standing around doing nothing?" Let them make the speech. Then go up the hill.</span></div>
+ </section>
+
+ <article class="floor">
+  <div class="fh"><span class="fn">Floor one</span><h3>The Copper Stair</h3><span class="dim" style="margin-left:auto">15 min · a fight either way</span></div>
+  <div class="say"><span class="tg">Read aloud</span>
+   <p>Inside the crack is a stair of green copper going down, and down, and down. Nothing is lighting it. It is lit anyway.</p>
+   <p>At the bottom are two doors. The left one is rattling — something behind it is ticking, fast, like a hundred tiny clocks that are late. The right one is warm to touch, and smells, unmistakably, of soup.</p>
+  </div>
+  <div class="fork">
+   <div class="path"><h4>Left — The Rattling Gallery</h4>
+    <p>Three <b>Tick-Tock Beetles</b> made of clockwork and bad temper, guarding a gallery of copper statues.</p>
+    <p class="pr">Reward: deal 3 Common, keep 1</p></div>
+   <div class="path"><h4>Right — The Ember Kitchen</h4>
+    <p><b>The Ember Kettle</b>, a stove that developed opinions a century ago and has been holding on to them since.</p>
+    <p class="pr">Reward: deal 3 Common, keep 1</p></div>
+  </div>
+  <ul class="plain">
+   <li><b>Let them pick the door, not you.</b> They will want to know what's behind the other one — tell them afterwards. Wanting the other door is how you get a session three.</li>
+   <li><b>Both fights have a shortcut</b> written on the monster card. The beetles can be stopped by turning the key on their backs <i>backwards</i>. The Kettle goes out if somebody empties the water jug on it. Both are on the shelf, in plain sight. Mention the jug twice.</li>
+  </ul>
+ </article>
+
+ <article class="floor">
+  <div class="fh"><span class="fn">Floor two</span><h3>The Hall of Keys</h3><span class="dim" style="margin-left:auto">15 min · puzzle, then a chest</span></div>
+  <div class="say"><span class="tg">Read aloud</span>
+   <p>A door of solid green copper, forty feet tall, with no handle, no keyhole and no hinges. Set into it are three stone mouths, open, as though all three are about to say something.</p>
+   <p>Carved above them, left to right: a mouse. A dragon. A kettle.</p>
+  </div>
+  <ul class="plain">
+   <li><b>The door opens for sounds, not keys.</b> They have to <i>make</i> the three noises, out loud, in the order carved: a <b>squeak</b>, a <b>roar</b>, a <b>whistle</b>. No dice. Yes, they have to actually do it. Yes, so do you.</li>
+   <li><b>Wrong order:</b> all three mouths blow a raspberry and the party is covered in a century of dust. No damage. Try again, as often as they like.</li>
+   <li><b>Hints, in order:</b> (1) "Read the carvings out loud again." (2) Tam squeaks by accident and the first mouth lights up green. (3) Tam says it: "It doesn't want keys. It wants us to <i>be</i> them."</li>
+  </ul>
+  <div class="say"><span class="tg">Then, behind the door</span>
+   <p>A room the size of a church, and in the middle of it, an open chest with gold running out of it and down the steps like water. Goblets. Rings. A crown with one stone missing. All of it still, and shining, and lit by nothing at all.</p>
+  </div>
+  <div class="dmn"><span class="pip s">Chest</span><span>Deal <b>3 Rare</b> cards face up. They keep one. Let them hold all three first.</span></div>
+ </article>
+
+ <article class="floor">
+  <div class="fh"><span class="fn">Floor three</span><h3>The Fork</h3><span class="dim" style="margin-left:auto">20 min · the real decision</span></div>
+  <div class="say"><span class="tg">Read aloud</span>
+   <p>Two ways on. Straight ahead, a door of bronze thirty feet high, and sitting in front of it with its hands on its knees, asleep, a bronze giant. Through the gap beneath the door you can see something glittering. A lot of something.</p>
+   <p>To the left, at the bottom of the wall, a door the size of a shoebox with warm light under it, and the smell of toast.</p>
+  </div>
+  <div class="fork">
+   <div class="path"><h4>The Bronze Warden</h4>
+    <p>An <b>elite</b> fight — AC 14, 8 hit points, and it hits two heroes at once. The hardest thing in the adventure.</p>
+    <p class="pr">Win: deal 2 Legendary, keep 1</p>
+    <p class="dim" style="font-size:13.5px">Or talk it down — say Verdigris's name, or show it Clink's drawing — and walk past safely for <b>3 Rare, keep 1</b>. Clever is worth less than brave here, and that is the point.</p></div>
+   <div class="path safe"><h4>The Mouse Door</h4>
+    <p>Tam's enormous family, forty of them, all talking at once, all insisting you eat something.</p>
+    <p class="pr">Everyone heals to full · deal 2 Common, keep both</p>
+    <p class="dim" style="font-size:13.5px">No fight, no risk, and the party arrives at the boss with full hearts.</p></div>
+  </div>
+  <ul class="plain">
+   <li><b>Say the trade out loud before they choose.</b> "The big one has the best treasure in the mountain behind it. The little one has breakfast and no fighting. You can't do both." Then be quiet and let them argue.</li>
+   <li><b>Whatever they pick was right.</b> If they take the safe door, the boss fight goes smoothly and they feel clever. If they take the Warden, the boss fight is a near thing and they feel heroic. Both are good evenings.</li>
+  </ul>
+ </article>
+
+ <article class="floor">
+  <div class="fh"><span class="fn">Floor four</span><h3>The Singing Deep</h3><span class="dim" style="margin-left:auto">25 min · the boss</span></div>
+  <div class="say"><span class="tg">Read aloud</span>
+   <p>The bottom of Copperfoot is not a cave. It is a hall, and it is full of gold — hills of it, slopes of it, a hundred years of coins and cups and crowns heaped up to the ceiling, and every single piece of it polished.</p>
+   <p>Lying across the top of the biggest heap, with her chin on her claws and her wings folded like a roof, is a copper dragon the size of the bell tower. Her eyes are gold. She has been watching the door since you came in.</p>
+   <p>Curled up against her side, very small, and not looking at you, is Clink.</p>
+   <p>"You," says Verdigris, "taught my son to perform. For <i>humans.</i> On a <i>roof.</i>"</p>
+  </div>
+  <ul class="plain">
+   <li><b>She is not evil and she is not lying.</b> She saw her child standing on a tower in front of a crowd of humans and she drew the obvious conclusion. She has been wrong for three weeks and absolutely certain for all of them.</li>
+   <li><b>The way to win is Clink singing,</b> and Clink will not sing, because his mother is right there. Coaxing him is the actual boss fight: ask him, sing with him (Corvin's <b>Harmony</b>), say something kind (Mara's <b>Healing Word</b> works on feelings too), or just tell Verdigris to listen. Roll d20 against 10, with <b>advantage</b> if a hero sings <i>with</i> him rather than at him.</li>
+   <li><b>If they'd rather fight:</b> 14 hit points, and at <b>7</b> she stops to breathe — that pause is when somebody can finally be heard. The fight is never the losing path, it is just the longer road to the same door.</li>
+   <li><b>When he sings:</b> stop. Describe the hall going quiet. She has never heard him. She did not know he could. Let that sit for a second before anybody rolls anything again.</li>
+  </ul>
+  <div class="say"><span class="tg">Read aloud at the end</span>
+   <p>Verdigris puts her head down on the gold, very slowly, so that her eye is level with yours. Up close it is the size of a window.</p>
+   <p>"Teach him the rest of it," she says. "I will come and listen. From the hill. Where I do not frighten anybody."</p>
+   <p>Then she reaches up, works one green scale loose from her own throat, and drops it into your hands. It is still warm.</p>
+  </div>
+  <div class="dmn"><span class="pip f">Boss relic</span><span>Hand over <b>Verdigris's Scale</b>. Once per adventure, forever, they can call a dragon for one turn. Put it in the relic row and leave it there.</span></div>
+ </article>
+
+ <section class="stack">
+  <span class="lab">Pick a hero</span>
+  <h2>The roster</h2>
+  <p class="dim">The four from Barleybrook, plus four who turn up for this one. Everybody's sheet now has their pronouns on it, so there is nothing to guess at the table.</p>
+  <div class="ros" id="roster"></div>
+ </section>
+
+ <section class="stack">
+  <span class="lab">Friends and trouble</span>
+  <h2>The cast</h2>
+  <p class="dim">Tap the circles to track hit points.</p>
+  <div class="stack" id="cast" style="gap:16px"></div>
+ </section>
+
+ <section class="stack">
+  <span class="lab">Thirty cards</span>
+  <h2>The treasure deck</h2>
+  <div class="btns" id="filters" style="margin-bottom:4px"></div>
+  <div class="deck" id="deck"></div>
+ </section>
+
+ <section class="card">
+  <h2>After this one</h2>
+  <ul class="plain">
+   <li><b>Level up:</b> +2 hit points and +1 to attack rolls, same as last time. Write it on the sheet.</li>
+   <li><b>Relics stay out.</b> They are not spent, not ever. Next adventure begins with them already on the table.</li>
+   <li><b>Session three is already set up:</b> the copper stair goes further down than anybody went. Something at the bottom has been listening to all this singing, and it has started humming along.</li>
+  </ul>
+  <hr class="rule">
+  <div class="dmn"><span class="pip">What to print</span><span>Four pages of cards: the 30 treasure cards and the 6 character cards, 9 to a page. Cardstock if you have it. Deal the treasure face up — seeing all three at once is the whole game.</span></div>
+ </section>
+</div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const el=(t,c,h)=>{const n=document.createElement(t);if(c)n.className=c;if(h!=null)n.innerHTML=h;return n};
+/*__ART3__*/
+/*__CARDS__*/
+/*__ROSTER4__*/
+
+const RAR={common:{n:'Common'},rare:{n:'Rare'},epic:{n:'Legendary'},relic:{n:'Relic'}};
+const ARCH=`<svg class="arch" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+ <path d="M0 0 H100 V100 H0 Z M8 100 V40 Q8 12 50 12 Q92 12 92 40 V100 Z" fill="#181223" fill-rule="evenodd"/>
+ <path d="M8 100 V40 Q8 12 50 12 Q92 12 92 40 V100" fill="none" stroke="#6b5a3e" stroke-width="1.6" opacity=".7"/>
+ <path d="M44 12 h12 v8 h-12 Z" fill="#6b5a3e" opacity=".55"/>
+ <g fill="#0d0912" opacity=".97">
+  <path d="M0 0 H46 C30 5 18 14 11 27 C9 16 5 7 0 3 Z"/>
+  <path d="M100 0 H54 C70 5 82 14 89 27 C91 16 95 7 100 3 Z"/>
+  <path d="M0 100 V78 C7 85 11 92 13 100 Z"/>
+  <path d="M100 100 V78 C93 85 89 92 87 100 Z"/></g>
+ <g stroke="#0d0912" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".97">
+  <path d="M11 27 L3 17 M11 27 L21 21 M20 14 L14 5 M89 27 L97 17 M89 27 L79 21 M80 14 L86 5"/></g></svg>`;
+function tcard(c,cls){
+ return `<article class="tc ${c.r} ${cls||''}" data-n="${c.n}"><div class="tcin">
+  <div class="art">${icon(c.i,c.c1,c.c2)}${ARCH}<div class="gem"><span></span></div>
+   <div class="ban"><h4>${c.n}</h4></div></div>
+  <div class="txt"><p class="eff">${c.e}</p><p class="fl">${c.f}</p></div>
+  <div class="rar">${RAR[c.r].n}${c.k?' · '+c.k:''}</div></div></article>`;
+}
+$('#map').innerHTML=MAPSVG2;
+
+/* roster */
+$('#roster').innerHTML=ROSTER.map(h=>`<div class="hero">${figure(h.art)}
+ <div class="hb"><div class="hn">${h.name} ${h.nw?'<span class="new">new</span>':''}</div>
+ <div class="hc">${h.cls} · <em>${h.pro}</em></div>
+ <div class="hc">${h.blurb}</div>
+ <div class="hs"><span>AC ${h.ac}</span><span>HP ${h.hp}</span><span>d20+${h.atk.b}</span></div>
+ <div class="hm"><b>${h.atk.n}</b> — ${h.atk.d}</div>
+ <div class="hm"><b>${h.spec.n}</b> — ${h.spec.d}</div>
+ <div class="hm dim"><b>Good at</b> ${h.good.n}, d20+${h.good.b}</div></div></div>`).join('');
+
+/* cast */
+const dmg={};
+function renderCast(){
+ $('#cast').innerHTML=CAST.map((m,i)=>{
+  const cir=Array.from({length:m.hp},(_,j)=>(m.half&&j===m.half?'<span class="half"></span>':'')+
+   `<button data-m="${i}" data-j="${j}" aria-pressed="${(dmg[i]||0)>j}" aria-label="Hit point ${j+1}"></button>`).join('');
+  return `<div class="sb ${m.t}"><div class="sbt">${figure(m.art)}
+   <div><div class="sbn">${m.name}</div><div class="sbr">${m.role}</div>
+    <div class="nums"><span>AC <b>${m.ac}</b></span><span>HP <b>${m.hp}</b></span><span class="hpc">${cir}</span></div></div></div>
+   <div class="sbrows">
+    <div><b>${m.atk.n}</b> d20+${m.atk.b} <span class="dim">(or ${m.atk.alt})</span> — ${m.atk.d}</div>
+    <div><b>${m.spec.n}</b> — ${m.spec.d}</div></div>
+   <div class="sbnote"><b>Playing it:</b> ${m.note}</div></div>`}).join('');
+ document.querySelectorAll('.hpc button').forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.m,j=+b.dataset.j;dmg[i]=(dmg[i]||0)>j?j:j+1;renderCast()});
+}
+renderCast();
+
+/* deck gallery + filter */
+let filt='all';
+function renderDeck(){
+ $('#filters').innerHTML=['all','common','rare','epic','relic'].map(k=>
+  `<button data-f="${k}" class="${filt===k?'go':''}">${k==='all'?'All 30':RAR[k].n}</button>`).join('');
+ $('#deck').innerHTML=DECK.filter(c=>filt==='all'||c.r===filt).map(c=>tcard(c)).join('');
+ document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{filt=b.dataset.f;renderDeck()});
+}
+renderDeck();
+
+/* deal three, keep one */
+let loot=[];
+function renderLoot(){
+ $('#loot').innerHTML=loot.length?loot.map(c=>
+  `<div class="lootrow ${c.r==='relic'?'relic':''}"><b>${c.n}</b><span>${RAR[c.r].n}</span></div>`).join('')
+  :'<p class="dim" style="font-size:14px">Nothing yet. Deal some cards.</p>';
+}
+renderLoot();
+function deal(r,n){
+ const pool=DECK.filter(c=>c.r===r&&!loot.includes(c));
+ const picked=[];
+ const copy=pool.slice();
+ while(picked.length<n&&copy.length)picked.push(copy.splice(Math.floor(Math.random()*copy.length),1)[0]);
+ if(!picked.length){$('#offer').innerHTML='<p class="dim">That pile is empty — clear the table to shuffle it back.</p>';return}
+ $('#offer').innerHTML=picked.map(c=>tcard(c,'pickme')).join('');
+ document.querySelectorAll('#offer .pickme').forEach(node=>{
+  node.onclick=()=>{
+   const c=picked.find(x=>x.n===node.dataset.n);
+   if(c&&!loot.includes(c))loot.push(c);
+   $('#offer').innerHTML='';renderLoot();
+  };
+ });
+}
+document.querySelectorAll('.btns [data-r]').forEach(b=>b.onclick=()=>deal(b.dataset.r,+b.dataset.n));
+$('#clear').onclick=()=>{loot=[];$('#offer').innerHTML='';renderLoot()};
+</script>
