@@ -71,8 +71,19 @@ race's silhouette break collides with an existing one, both races get weaker. Th
 
 ## The treasure draft
 
-Both adventures use the same loop: **after every fight deal three cards face up and keep
-one**; a chest is 3 Rare; an elite is 2 Legendary; a boss gives a Relic. Relics are never
+Both adventures use the same loop: **deal three cards face up at random from one rarity
+pile, keep one**. The encounter picks the pile, so the DM never decides a rarity on the
+spot:
+
+| Encounter | Deal | Because the tier means |
+|---|---|---|
+| Ordinary fight | 3 Common | one moment — solves a problem once |
+| Chest, or a solved puzzle | 3 Rare | one fight — changes how a fight goes |
+| Elite they chose to fight | 2 Legendary | one adventure — bends the night once |
+| Boss | 1 Relic | every adventure — never spent |
+
+Random matters: the DM deals off the top of the pile rather than choosing which three,
+refused cards go to the bottom, and spent cards return to the bottom of their pile. Relics are never
 spent and carry between adventures, so a kid with three relics on the table has three
 adventures on the table.
 
