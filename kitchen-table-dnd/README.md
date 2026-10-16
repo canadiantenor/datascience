@@ -1,8 +1,8 @@
 # Kitchen Table D&D — template
 
 A simplified D&D for a 6–8 year old, and the SVG portrait engine that illustrates it.
-Two adventures, 8 pre-made heroes across 8 races, a 30-card treasure deck, and print
-packs that come out on white paper.
+Two adventures, 8 pre-made heroes across 8 races, **two separate treasure decks** (23 cards
+for adventure one, 30 for adventure two, no overlap), and print packs on white paper.
 
 The art rules this engine implements are in [`../bluth.md`](../bluth.md). Read that before
 changing anything in `portrait-engine.js` — most of what looks like an arbitrary number in
@@ -31,6 +31,7 @@ silhouettes — that's the test protocol from `bluth.md §2b`. Any two that get 
 | `portrait-engine.js` | The whole art system. `figure(spec)` → SVG portrait; `icon(kind)` → treasure art. Holds the `RACES` table. |
 | `roster.js` | The 8 heroes — stats, moves, pronouns, art spec. Shared by both adventures. |
 | `copperfoot-data.js` | Adventure two: 30-card treasure deck, cast, branching node map. |
+| `barleybrook-deck.js` | Adventure one's own 23-card deck — village, mine and festival loot. |
 | `barleybrook-cast.js` | Adventure one: cast and the six-room map. |
 | `barleybrook-adventure.js` | Adventure one's treasure, magic items and legacy tables. |
 | `page-*.html` | The two adventure pages. Shared stylesheet; `/*__MARKERS__*/` get the data inlined at build. |
@@ -67,6 +68,18 @@ its width points — no segment joins, because joins are where "angular" comes f
 Add a row to `RACES` and claim an **unused contour-clock slot** (`bluth.md §2b`). If the new
 race's silhouette break collides with an existing one, both races get weaker. Then give it a
 `tell` branch in `figure()` and, if it needs one, a hair shape language.
+
+## The treasure draft
+
+Both adventures use the same loop: **after every fight deal three cards face up and keep
+one**; a chest is 3 Rare; an elite is 2 Legendary; a boss gives a Relic. Relics are never
+spent and carry between adventures, so a kid with three relics on the table has three
+adventures on the table.
+
+Each adventure has its own deck so the second one doesn't feel like the first. Keep them
+that way: if you add cards, check the names don't collide (`barleybrook-deck.js` and
+`copperfoot-data.js`). Sizing matters for print — 23 cards plus 4 cast cards is exactly
+three Letter pages at 9 to a page, and 30 plus 6 is exactly four.
 
 ## Rules the game runs on
 

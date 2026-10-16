@@ -10,11 +10,13 @@ eval(src);
 src=fs.readFileSync(__dirname+'/barleybrook-adventure.js','utf8');
 ['HEROES','MONSTERS','TREASURE','MAGIC','MAPSVG'].forEach(k=>src=src.replace('const '+k+'=','global.'+k+'='));
 let r=fs.readFileSync(__dirname+'/roster.js','utf8').replace('const ROSTER=','global.ROSTER=');
+let dk=fs.readFileSync(__dirname+'/barleybrook-deck.js','utf8').replace('const DECK=','global.DECK=');
 let c1=fs.readFileSync(__dirname+'/barleybrook-cast.js','utf8');
 ['CAST','ROOMS1','MAP1'].forEach(k=>c1=c1.replace('const '+k+'=','global.'+k+'='));
 eval(src);
 eval(r);
 eval(c1);
+eval(dk);
 
 const circles=(n,extra)=>Array.from({length:n},()=>'<i></i>').join('')+
   (extra?Array.from({length:extra},()=>'<i class="ex"></i>').join(''):'');
@@ -59,6 +61,31 @@ const monsterCard=m=>`<div class="q mon">
  <div class="tac"><b>Playing it:</b> ${m.note}</div>
 </div>`;
 
+const RN={common:'Common',rare:'Rare',epic:'Legendary',relic:'Relic'};
+const ARCH=`<svg class="arch" viewBox="0 0 100 100" preserveAspectRatio="none">
+ <path d="M0 0 H100 V100 H0 Z M8 100 V40 Q8 12 50 12 Q92 12 92 40 V100 Z" fill="#ffffff" fill-rule="evenodd"/>
+ <path d="M8 100 V40 Q8 12 50 12 Q92 12 92 40 V100" fill="none" stroke="#15101b" stroke-width="1.6" opacity=".8"/>
+ <path d="M44 12 h12 v8 h-12 Z" fill="none" stroke="#15101b" stroke-width="1.4" opacity=".7"/>
+ 
+ <g stroke="#15101b" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".55">
+  <path d="M11 27 L3 17 M11 27 L21 21 M20 14 L14 5 M89 27 L97 17 M89 27 L79 21 M80 14 L86 5"/></g></svg>`;
+
+const tCard=c=>`<div class="pc ${c.r}"><div class="pcin">
+ <div class="part">${icon(c.i,c.c1,c.c2,true)}${ARCH}<div class="gem"></div><div class="ban"><h4>${c.n}</h4></div></div>
+ <div class="ptxt"><p class="eff">${c.e}</p><p class="fl">${c.f}</p></div>
+ <div class="rar">${RN[c.r]}${c.k?' · '+c.k:''}</div></div></div>`;
+
+const castCard=m=>`<div class="pc cast ${m.t}"><div class="pcin">
+ <div class="part sm">${figure(Object.assign({},m.art,{light:true}))}${ARCH}<div class="ban"><h4>${m.name}</h4></div></div>
+ <div class="ptxt">
+  <p class="role">${m.role}</p>
+  <p class="st"><span>AC <b>${m.ac}</b></span><span>HP <b>${m.hp}</b></span>
+   <span class="cc">${Array.from({length:m.hp},(_,j)=>(m.half&&j===m.half?'<i class="bar"></i>':'')+'<i></i>').join('')}</span></p>
+  <p class="eff"><b>${m.atk.n}</b> d20+${m.atk.b} <span class="g">(${m.atk.alt})</span> — ${m.atk.d}</p>
+  <p class="eff"><b>${m.spec.n}</b> — ${m.spec.d}</p></div>
+ <div class="rar">${m.t==='boss'?'Boss':m.t==='elite'?'Elite':m.t==='ally'?'Friend':'Monster'}</div></div></div>`;
+
+
 const handout=`<div class="q sign">
  <div class="signinner">
   <div class="snm">Tam's Sign</div>
@@ -83,6 +110,8 @@ const rulesPage=`<div class="rulespage">
  </ul></div>`;
 
 const hp=[];for(let i=0;i<ROSTER.length;i+=4)hp.push(ROSTER.slice(i,i+4).map(heroSheet));
+const allCards=[...DECK.map(tCard),...CAST.map(castCard)];
+const cardPages=[];for(let i=0;i<allCards.length;i+=9)cardPages.push(allCards.slice(i,i+9));
 const html=`<!doctype html><html><head><meta charset="utf-8"><title>The Bell of Barleybrook — sheets</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap">
 <style>
@@ -95,6 +124,33 @@ body{margin:0;font-family:var(--body);color:var(--ink);background:#fff;font-size
 .sheet{width:7.8in;height:10.3in;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
  gap:0;page-break-after:always;break-after:page}
 .sheet:last-child{page-break-after:auto;break-after:auto}
+.page{width:7.9in;display:grid;grid-template-columns:repeat(3,2.5in);grid-auto-rows:3.4in;
+ page-break-after:always;break-after:page}
+/* ---- cards on white, ink line, colour only where it earns it ---- */
+.pc{padding:0;position:relative;background:#fff;border:1.4pt solid #15101b}
+.pc.common{--gl:#5d6e46}.pc.rare{--gl:#2f5f93}.pc.epic{--gl:#9a6a12}.pc.relic{--gl:#9a3a18}
+.pc.cast{--gl:#9a3a18}.pc.cast.ally{--gl:#2f6b52}.pc.cast.boss{--gl:#8a2436}.pc.cast.elite{--gl:#9a6a12}
+.pcin{background:#fff;height:100%;display:flex;flex-direction:column;overflow:hidden;color:#15101b}
+.part{position:relative;border-bottom:1.2pt solid #15101b}
+.part>svg{display:block;width:100%;height:auto}
+.part.sm>svg{height:104pt;object-fit:cover}
+.arch{position:absolute;inset:0;width:100%;height:100%}
+.gem{position:absolute;top:4pt;left:4pt;width:12pt;height:12pt;transform:rotate(45deg);
+ background:var(--gl);border:1.2pt solid #15101b}
+.ban{position:absolute;left:0;right:0;bottom:0;padding:3.6pt 7pt 3pt;background:#fff;border-top:1.2pt solid #15101b}
+.ban h4{margin:0;font-family:var(--disp);font-size:9.4pt;line-height:1.1;color:#15101b}
+.ptxt{padding:5pt 7pt 4pt;display:flex;flex-direction:column;gap:3pt;flex:1;background:#fff}
+.eff{margin:0;font-size:7.2pt;line-height:1.3}
+.fl{margin:0;font-size:6.2pt;font-style:italic;color:#5b5266;line-height:1.26}
+.role{margin:0;font-size:6.6pt;font-style:italic;color:#5b5266}
+.st{margin:0;display:flex;gap:7pt;align-items:center;font-size:7.4pt;flex-wrap:wrap}
+.st b{font-family:var(--disp);font-size:9pt}
+.cc{display:flex;gap:2pt;align-items:center;flex-wrap:wrap}
+.cc i{width:7pt;height:7pt;border:1pt solid #15101b;border-radius:50%;display:block}
+.cc i.bar{width:1.4pt;height:7pt;background:#9a6a12;border:0}
+.g{color:#5b5266}
+.rar{font-family:var(--disp);font-size:6pt;letter-spacing:.13em;text-transform:uppercase;
+ padding:2.6pt 7pt 3.4pt;color:var(--gl);border-top:1pt solid #15101b;background:#fff;font-weight:700}
 .q{border:0.8pt dashed var(--line);padding:11pt 12pt;display:flex;flex-direction:column;gap:5pt;overflow:hidden}
 .qtop{display:grid;grid-template-columns:62pt 1fr;gap:9pt;align-items:start}
 .port svg{width:62pt;height:62pt;border:1pt solid var(--line);border-radius:2pt;display:block}
@@ -149,7 +205,8 @@ body{margin:0;font-family:var(--body);color:var(--ink);background:#fff;font-size
 .rulespage li{margin-bottom:3.4pt;break-inside:avoid}
 </style></head><body>
 ${hp.map(p=>`<div class="sheet">${p.join('')}</div>`).join('')}
-<div class="sheet">${CAST.map(monsterCard).join('')}${handout}</div>
+${cardPages.map(p=>`<div class="page">${p.join('')}</div>`).join('')}
+<div class="sheet">${handout}</div>
 <div class="mappage">
  <div><h1>The Old Copperfoot Mine</h1><p class="sub">Six rooms in a line. Nobody can get lost.</p></div>
  <div class="mapbox">${MAP1}</div>
@@ -158,4 +215,4 @@ ${hp.map(p=>`<div class="sheet">${p.join('')}</div>`).join('')}
 </div>
 </body></html>`;
 fs.writeFileSync(__dirname+'/print-barleybrook.html',html);
-console.log('hero pages:',hp.length,'| hero sheets:',ROSTER.length,'| cast cards:',CAST.length,'| handout + map: 2');
+console.log('card pages:',cardPages.length,'| treasure:',DECK.length,'| cast:',CAST.length,'| hero pages:',hp.length,'| handout + map: 2');

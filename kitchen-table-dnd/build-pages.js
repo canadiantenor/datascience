@@ -21,5 +21,5 @@ build('page-copperfoot.html',
   {'/*__ART3__*/':'__ENGINE__','/*__CARDS__*/':'copperfoot-data.js','/*__ROSTER4__*/':'__ROSTER__'},
   'mother-of-copperfoot.html');
 build('page-barleybrook.html',
-  {'/*__ART3__*/':'__ENGINE__','/*__CAST__*/':'barleybrook-cast.js','/*__ROSTER4__*/':'__ROSTER__'},
+  {'/*__ART3__*/':'__ENGINE__','/*__CAST__*/':'barleybrook-cast.js','/*__DECK__*/':'barleybrook-deck.js','/*__ROSTER4__*/':'__ROSTER__'},
   'bell-of-barleybrook.html');

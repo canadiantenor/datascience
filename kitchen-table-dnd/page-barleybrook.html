@@ -150,8 +150,25 @@ button.go{background:linear-gradient(#5e4216,#3a2a0e);border-color:var(--gold);c
  <section class="card">
   <span class="lab">Loot</span>
   <h2>Treasure you choose</h2>
-  <p>Same deck as adventure two, and it starts here. <b>After every fight, deal three Common cards face up and let them keep one.</b> The argument about which to take is the reward. The Glitter Hall in room 5 is the one chest: deal <b>3 Rare</b> there.</p>
+  <p>Barleybrook has <b>its own 23-card deck</b> — apples, chalk, a borrowed teapot, one saved firework. <b>After every fight, deal three Common cards face up and let them keep one.</b> The argument about which to take is the reward. The Glitter Hall in room 5 is the one chest: deal <b>3 Rare</b> there. Relics carry forward into adventure two's deck.</p>
   <div class="dmn"><span class="pip m">Relics</span><span>Clink hands over a relic at the end. Relics are never spent — lay it face up in front of the player and leave it there between sessions. Next adventure begins with it already on the table.</span></div>
+ </section>
+
+ <section class="stack">
+  <span class="lab">Deal three, keep one</span>
+  <h2>Try it now</h2>
+  <p class="dim">This is Barleybrook's own deck — 23 cards, different from the Copperfoot one. Tap a button, then tap the card you want.</p>
+  <div class="table">
+   <div class="btns">
+    <button class="go" data-r="common" data-n="3">Deal 3 Common</button>
+    <button data-r="rare" data-n="3">Chest: 3 Rare</button>
+    <button data-r="epic" data-n="2">2 Legendary</button>
+    <button data-r="relic" data-n="1">Boss: take a Relic</button>
+    <button id="clear">Clear the table</button>
+   </div>
+   <div class="offer" id="offer"></div>
+   <div><span class="lab">Your loot</span><div class="loot" id="loot" style="margin-top:9px"></div></div>
+  </div>
  </section>
 
  <section class="stack">
@@ -279,6 +296,14 @@ button.go{background:linear-gradient(#5e4216,#3a2a0e);border-color:var(--gold);c
   <div class="stack" id="cast" style="gap:16px"></div>
  </section>
 
+ <section class="stack">
+  <span class="lab">Twenty-three cards</span>
+  <h2>Barleybrook's treasure deck</h2>
+  <p class="dim">A village, a mine and a harvest festival — so the loot is apples, chalk, a borrowed teapot and one firework somebody has been saving since last autumn. Keep the relics out between sessions; they carry into adventure two.</p>
+  <div class="btns" id="filters" style="margin-bottom:4px"></div>
+  <div class="deck" id="deck"></div>
+ </section>
+
  <section class="card">
   <h2>When it goes sideways</h2>
   <div class="grid2">
@@ -322,7 +347,49 @@ button.go{background:linear-gradient(#5e4216,#3a2a0e);border-color:var(--gold);c
 const $=(s,r=document)=>r.querySelector(s);
 /*__ART3__*/
 /*__CAST__*/
+/*__DECK__*/
 /*__ROSTER4__*/
+
+const RAR={common:{n:'Common'},rare:{n:'Rare'},epic:{n:'Legendary'},relic:{n:'Relic'}};
+const ARCH=`<svg class="arch" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+ <path d="M0 0 H100 V100 H0 Z M8 100 V40 Q8 12 50 12 Q92 12 92 40 V100 Z" fill="#181223" fill-rule="evenodd"/>
+ <path d="M8 100 V40 Q8 12 50 12 Q92 12 92 40 V100" fill="none" stroke="#6b5a3e" stroke-width="1.6" opacity=".7"/>
+ <path d="M44 12 h12 v8 h-12 Z" fill="#6b5a3e" opacity=".55"/></svg>`;
+function tcard(c,cls){
+ return `<article class="tc ${c.r} ${cls||''}" data-n="${c.n}"><div class="tcin">
+  <div class="art">${icon(c.i,c.c1,c.c2)}${ARCH}<div class="gem"><span></span></div>
+   <div class="ban"><h4>${c.n}</h4></div></div>
+  <div class="txt"><p class="eff">${c.e}</p><p class="fl">${c.f}</p></div>
+  <div class="rar">${RAR[c.r].n}${c.k?' · '+c.k:''}</div></div></article>`;
+}
+let filt='all';
+function renderDeck(){
+ $('#filters').innerHTML=['all','common','rare','epic','relic'].map(k=>
+  `<button data-f="${k}" class="${filt===k?'go':''}">${k==='all'?'All 23':RAR[k].n}</button>`).join('');
+ $('#deck').innerHTML=DECK.filter(c=>filt==='all'||c.r===filt).map(c=>tcard(c)).join('');
+ document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{filt=b.dataset.f;renderDeck()});
+}
+renderDeck();
+let loot=[];
+function renderLoot(){
+ $('#loot').innerHTML=loot.length?loot.map(c=>
+  `<div class="lootrow ${c.r==='relic'?'relic':''}"><b>${c.n}</b><span>${RAR[c.r].n}</span></div>`).join('')
+  :'<p class="dim" style="font-size:14px">Nothing yet. Deal some cards.</p>';
+}
+renderLoot();
+function deal(r,n){
+ const pool=DECK.filter(c=>c.r===r&&!loot.includes(c)), picked=[], copy=pool.slice();
+ while(picked.length<n&&copy.length)picked.push(copy.splice(Math.floor(Math.random()*copy.length),1)[0]);
+ if(!picked.length){$('#offer').innerHTML='<p class="dim">That pile is empty — clear the table to shuffle it back.</p>';return}
+ $('#offer').innerHTML=picked.map(c=>tcard(c,'pickme')).join('');
+ document.querySelectorAll('#offer .pickme').forEach(node=>{
+  node.onclick=()=>{const c=picked.find(x=>x.n===node.dataset.n);
+   if(c&&!loot.includes(c))loot.push(c);
+   $('#offer').innerHTML='';renderLoot();};
+ });
+}
+document.querySelectorAll('.btns [data-r]').forEach(b=>b.onclick=()=>deal(b.dataset.r,+b.dataset.n));
+$('#clear').onclick=()=>{loot=[];$('#offer').innerHTML='';renderLoot()};
 
 $('#map').innerHTML=MAP1;
 

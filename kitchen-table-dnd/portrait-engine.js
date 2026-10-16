@@ -387,6 +387,9 @@ function icon(kind,c1,c2,light){
            <path d="M38 44 h26 M38 54 h26 M38 64 h16" stroke="#1a1426" stroke-width="2.2" opacity=".55"/>`,
    tooth:`<path d="M34 24 h32 q4 28 -8 52 q-8 12 -16 0 q-12 -24 -8 -52 Z" ${F}/>
           <path d="M44 32 q4 20 0 34" fill="none" stroke="#fff" stroke-width="2.4" opacity=".4"/>`,
+   key:`<circle cx="38" cy="36" r="14" fill="none" ${F.replace('fill="url(#im'+id+')"','')} stroke-width="7"/>
+        <path d="M46 46 L74 74" ${F} stroke-width="7"/>
+        <path d="M66 66 l9 -9 M74 74 l9 -9" ${F} stroke-width="6"/>`,
    star:`<path d="M50 16 L58 40 L84 42 L63 58 L70 84 L50 69 L30 84 L37 58 L16 42 L42 40 Z" ${F}/>`
   }[kind]||P2(kind);
   function P2(){return `<circle cx="50" cy="50" r="24" ${F}/>`}
