@@ -125,6 +125,17 @@ From the *Dragon's Lair* key art (Dirk) and the *All Dogs Go to Heaven* still
    fantasy names: that mismatch reads as a judgement about who is a *real* hero and who is
    a sidekick. Skin tone is set per character and carries **no** relationship to the name,
    so the cast varies on both axes independently.
-7. **Kindness in the face.** These are for a seven-year-old. Villains get heavy brows and
+7. **No two characters share a build.** An ensemble where every face is the same oval
+   with the same eyes reads as uncanny, not stylised — real casts differ most in the head.
+   The engine holds named builds (`hulking`, `broad`, `squat`, `balanced`, `tall`, `lean`,
+   `round`, `small`, `slender`), and each sets:
+   - **skull** — temple width, jaw taper, crown height, chin length
+   - **body** — shoulder spread, neck thickness, shoulder height
+   - **eyes** — size, spacing, roundness, tilt, brow weight
+   - **scale** — overall size in frame, so a gnome at 0.88 and a dwarf barbarian at 1.12
+     read as different creatures before you register a single feature
+   Eye size alone spans 7.4 to 11.6 across the cast. Every character is assigned a build,
+   and no two heroes share one.
+8. **Kindness in the face.** These are for a seven-year-old. Villains get heavy brows and
    fangs, but every creature keeps a readable, warm eye. Bluth's monsters are frightening;
    they are never cruel to look at.
