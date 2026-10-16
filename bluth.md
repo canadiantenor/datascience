@@ -107,6 +107,58 @@ From the *Dragon's Lair* key art (Dirk) and the *All Dogs Go to Heaven* still
 
 ---
 
+## 2b. The contour clock — how races read
+
+From a dedicated design research pass. The finding that reframed everything: this is a
+documented, industry-wide failure, not a local mistake. Baldur's Gate 3 players report that
+**with the ears covered, elves are indistinguishable from humans** — the complaint is
+specifically that the *skull* isn't differentiated. On official 5e race sketches a commenter
+said of the halflings, *"I would have had a hard time telling them apart from a couple of
+regular humans."* A working artist called gnomes and halflings *"basically just the ears."*
+
+The fix is that **every race breaks the silhouette at a different clock position**, and no
+two may share a slot:
+
+| Race | Break | Gestalt |
+|---|---|---|
+| Tiefling | 11 & 1 (crown) | horned bell |
+| Elf | 10 & 2 (eye line), blades at 55° | needle-tipped wedge |
+| Gnome | 9 & 3 (eye line), blunt paddles at 40° | wide "W" over a ball |
+| Dragonborn | 4 & 8 (jaw corner frills) | finned box, no ears, no chin |
+| Dwarf | 5 → 7 (the whole lower arc) | anvil — beard wider than the skull |
+| Half-orc | 6 only (tusks breaking **upward**) | neckless inverted trapezoid |
+| Halfling | 12, scalloped | apple — widest at the cheek, lumpy crown |
+| Human | none | clean egg — identity by being the only unbroken outline |
+
+Supporting rules, each of which is nearly free:
+
+- **Head : shoulder ratio is a race constant, not a character knob** — 0.44 (half-orc) to
+  0.70 (halfling). In a head-and-shoulders crop this encodes *size* without drawing a body.
+  Let the big races clip the frame edge and the small ones float inside it.
+- **Nose is a 2D axis**: plot width against length and let no two races share a quadrant.
+  Dwarf wide-short bulb, gnome narrow-long bulb, halfling snub button, elf narrow-long
+  straight, half-orc broad-flat, dragonborn none (nostril slits on a muzzle).
+- **Iris treatment is a species channel**: tiefling solid orb with no sclera, dragonborn
+  vertical slit, dwarf large dark iris under a hooded lid, gnome oversized with a big
+  catchlight, elf high-saturation with a limbal ring, half-orc small amber.
+- **Ink weight varies by race**: 3.2 for dwarf/half-orc/dragonborn, 2.4 mid, 2.0 for
+  elf/tiefling. Heavy line reads as mass, fine line as refinement.
+- **Hair is a shape language, not a colour**: dwarf blunt lobes, gnome radiating tufts,
+  halfling overlapping curls, elf long parallels, tiefling backswept flames, half-orc
+  vertical crest, dragonborn scale plates, human one bold statement shape.
+- **Colour is the weakest channel** — it fails in greyscale, in cheap CMYK and for the ~8%
+  of boys with colour-vision deficiency. Every race must separate with the fill set to flat
+  black first; colour is reinforcement, assigned by hue family.
+- **Two failure directions to police**: halfling and gnome drift toward "human child",
+  which kills them as heroes a child wants to *be* — fix with an adult marker and an eye
+  line at 57% down the head, not 50%. Half-orc and tiefling drift toward "monster", which
+  kills them as heroes a parent wants to buy — give them the two widest smiles in the set,
+  blunt-tipped tusks and horns revealed *by the smile*. Menace is 90% brow angle: no
+  inner-brow-up on any card.
+- **Test protocol**: render all eight at 24mm in a row — colour, greyscale, solid black
+  silhouette, 2px blur. If any two get swapped, the fix belongs in the contour clock, not
+  in the face.
+
 ## 3. House rules for this project
 
 1. **Exaggerate proportion, never skip structure.** Eyes can be twice life size; the brow,
