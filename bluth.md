@@ -171,9 +171,15 @@ Supporting rules, each of which is nearly free:
   toward the turn, shrink the far eye by up to a third, leave the skull alone) plus 2–3° of
   head tilt is enough to break the mugshot row without rebuilding the skull system. Give
   every character their own turn and tilt, and alternate the direction down a lineup.
-- **No floating highlight strokes on the face.** A rim light has to sit *on the silhouette
-  edge* or not at all. A stroke a few units inside the contour doesn't read as light — it
-  reads as a scar or a stray line, and it appears on every card at once.
+- **No floating highlight strokes on the face, and no halo.** Two separate attempts at
+  Bluth's character-from-background separation both failed the same way. A rim-light stroke
+  placed a few units inside the contour reads as a scar, not as light. A blurred light-
+  coloured copy of the silhouette scaled up behind the head reads as a pale bar wherever it
+  peeks past the contour — and because the sides of a head are the straightest part of it,
+  that is exactly where it shows. Both appear on every card at once, which is how you know
+  it is a systematic error and not a drawing. Separate the character from the ground with
+  **the background instead**: a darker vignette at the frame edge and a lighter pool behind
+  the head. Nothing light-coloured goes near the silhouette edge.
 - **Build the skull as one smooth closed curve** through its width points (crown, temple,
   cheek, jaw, chin), with tangent-continuous handles — not as separate cubic segments with
   a straight line across the chin. Segment joins and that flat chin are where "angular"
