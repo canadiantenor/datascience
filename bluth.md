@@ -65,9 +65,19 @@ From the *Dragon's Lair* key art (Dirk) and the *All Dogs Go to Heaven* still
   apparent realism than any amount of rendering.
 - **Necks exist.** The jaw casts a shadow onto the neck. Heads that sit directly on
   shoulders read as toys.
-- **Muzzles protrude from the skull** — they are not circles stuck on the front. Charlie's
-  muzzle has a top plane, a jaw line under it, and a nose that sits on the end of a bridge.
-- **Big black nose leather with one white highlight** on every animal. Non-negotiable.
+- **A muzzle is a canine feature.** *All Dogs Go to Heaven* is a film about dogs, so the
+  muzzle-and-nose-leather construction read off Charlie belongs to **dogs and wolves only**.
+  Pasting it onto everything with a face is the single easiest way to make a cast look
+  generic. Each creature gets its own anatomy:
+  - **Dog / wolf** — muzzle with a top plane, a jaw line beneath, a big black nose leather
+    on the end of a bridge, one white highlight.
+  - **Dragon** — a tapering reptile wedge, nostrils as angled **slits** high on the snout,
+    a wide mouth seam, a faint ridge down the centre. No nose pad.
+  - **Mouse** — a short cone, a small pink nose at the tip, whiskers. Nothing heavy.
+  - **Lizard** — a wide flat jaw, round nostrils near the tip, mouth line wider than the head.
+  - **Human, elf, dwarf, gnome, halfling, orc** — **no snout at all.** A bridge, a wedge,
+    two nostrils, lips.
+- **Insects and machines get neither** — beetles have mandibles and antennae, not faces.
 
 ### Eyes
 - Large, but **almond, not round** — set on a slight outward tilt.
@@ -108,6 +118,13 @@ From the *Dragon's Lair* key art (Dirk) and the *All Dogs Go to Heaven* still
    scale it's costing ink for nothing.
 5. **Light grounds for anything that prints.** Bluth's own daylight palette (the *All Dogs*
    sky) is bright — so printing light is faithful, not a compromise.
-6. **Kindness in the face.** These are for a seven-year-old. Villains get heavy brows and
+6. **One naming convention across every race.** Every character gets an invented given
+   name plus a compound trade-or-nature surname — Stoutshield, Sparkfizzle, Quickfinger,
+   Bramblelight, Tidewright, Larksong, Thornwhisper, Coalhammer. No real-world ethnic
+   surnames, and no diminutives or nicknames for some characters while others get full
+   fantasy names: that mismatch reads as a judgement about who is a *real* hero and who is
+   a sidekick. Skin tone is set per character and carries **no** relationship to the name,
+   so the cast varies on both axes independently.
+7. **Kindness in the face.** These are for a seven-year-old. Villains get heavy brows and
    fangs, but every creature keeps a readable, warm eye. Bluth's monsters are frightening;
    they are never cruel to look at.
