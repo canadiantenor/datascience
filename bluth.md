@@ -159,6 +159,23 @@ Supporting rules, each of which is nearly free:
   silhouette, 2px blur. If any two get swapped, the fix belongs in the contour clock, not
   in the face.
 
+## 2c. Framing and pose
+
+- **Crop in.** The head should fill the card, not sit on a plinth of shoulders. Scale the
+  whole figure up about the eye line until the shoulders run off the bottom edge. A child
+  looking at a 24mm card is looking at a face.
+- **Necks are short and slim.** A long neck reads as a mannequin; it also costs frame that
+  the face should be using. Shoulders sit about 13 units below the chin, and the neck is
+  two-thirds the width an anatomy diagram would give it.
+- **Front-on is not mandatory.** A small three-quarter turn (shift the features 5–8 units
+  toward the turn, shrink the far eye by up to a third, leave the skull alone) plus 2–3° of
+  head tilt is enough to break the mugshot row without rebuilding the skull system. Give
+  every character their own turn and tilt, and alternate the direction down a lineup.
+- **A beard attaches below the cheekbone, not under the eye.** Attached high it reads as a
+  mask or a balaclava. The top edge sags *below* the nose in the middle and rises to the
+  ears at the sides, with a separate narrower moustache a shade lighter than the beard —
+  and the bulbous nose sits clear above both. If you cannot see the nose, the beard is wrong.
+
 ## 3. House rules for this project
 
 1. **Exaggerate proportion, never skip structure.** Eyes can be twice life size; the brow,
