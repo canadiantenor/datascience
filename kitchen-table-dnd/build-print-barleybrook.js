@@ -61,6 +61,7 @@ const monsterCard=m=>`<div class="q mon">
  <div class="tac"><b>Playing it:</b> ${m.note}</div>
 </div>`;
 
+const TIME={turn:'On your turn',free:'Free',always:'Always on'};
 const RN={common:'Common',rare:'Rare',epic:'Legendary',relic:'Relic'};
 const ARCH=`<svg class="arch" viewBox="0 0 100 100" preserveAspectRatio="none">
  <path d="M0 0 H100 V100 H0 Z M8 100 V40 Q8 12 50 12 Q92 12 92 40 V100 Z" fill="#ffffff" fill-rule="evenodd"/>
@@ -73,7 +74,7 @@ const ARCH=`<svg class="arch" viewBox="0 0 100 100" preserveAspectRatio="none">
 const tCard=c=>`<div class="pc ${c.r}"><div class="pcin">
  <div class="part">${icon(c.i,c.c1,c.c2,true)}${ARCH}<div class="gem"></div><div class="ban"><h4>${c.n}</h4></div></div>
  <div class="ptxt"><p class="eff">${c.e}</p><p class="fl">${c.f}</p></div>
- <div class="rar">${RN[c.r]}${c.k?' · '+c.k:''}</div></div></div>`;
+ <div class="rar"><span>${RN[c.r]}${c.k?' · '+c.k:''}</span><b class="tm tm-${c.t}">${TIME[c.t]}</b></div></div></div>`;
 
 const castCard=m=>`<div class="pc cast ${m.t}"><div class="pcin">
  <div class="part sm">${figure(Object.assign({},m.art,{light:true}))}${ARCH}<div class="ban"><h4>${m.name}</h4></div></div>
@@ -150,7 +151,10 @@ body{margin:0;font-family:var(--body);color:var(--ink);background:#fff;font-size
 .cc i.bar{width:1.4pt;height:7pt;background:#9a6a12;border:0}
 .g{color:#5b5266}
 .rar{font-family:var(--disp);font-size:6pt;letter-spacing:.13em;text-transform:uppercase;
- padding:2.6pt 7pt 3.4pt;color:var(--gl);border-top:1pt solid #15101b;background:#fff;font-weight:700}
+ padding:2.6pt 7pt 3.4pt;color:var(--gl);border-top:1pt solid #15101b;background:#fff;font-weight:700;
+ display:flex;justify-content:space-between;align-items:baseline;gap:5pt}
+.tm{letter-spacing:.06em;white-space:nowrap}
+.tm-turn{color:#b4542c}.tm-free{color:#2f6b52}.tm-always{color:#2f5f93}
 .q{border:0.8pt dashed var(--line);padding:11pt 12pt;display:flex;flex-direction:column;gap:5pt;overflow:hidden}
 .qtop{display:grid;grid-template-columns:62pt 1fr;gap:9pt;align-items:start}
 .port svg{width:62pt;height:62pt;border:1pt solid var(--line);border-radius:2pt;display:block}

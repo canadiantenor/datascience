@@ -76,6 +76,19 @@ one**; a chest is 3 Rare; an elite is 2 Legendary; a boss gives a Relic. Relics 
 spent and carry between adventures, so a kid with three relics on the table has three
 adventures on the table.
 
+Every card carries a **timing** in its bottom-right corner, and `t` on the card object
+sets it:
+
+| `t` | Means |
+|---|---|
+| `turn` | Using it *is* your turn, instead of attacking. |
+| `free` | Costs nothing; usable any time, including after a die has landed. |
+| `always` | Never spent — it just keeps being true. Leave it face up. |
+
+The limit that keeps a fight moving: one card on your turn, one `free` card per round.
+Classify a new card by asking what it would cost in a real turn — healing and attacking
+are `turn`, rerolls and reactions are `free`, worn or permanent things are `always`.
+
 Each adventure has its own deck so the second one doesn't feel like the first. Keep them
 that way: if you add cards, check the names don't collide (`barleybrook-deck.js` and
 `copperfoot-data.js`). Sizing matters for print — 23 cards plus 4 cast cards is exactly
