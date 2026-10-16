@@ -171,6 +171,13 @@ Supporting rules, each of which is nearly free:
   toward the turn, shrink the far eye by up to a third, leave the skull alone) plus 2–3° of
   head tilt is enough to break the mugshot row without rebuilding the skull system. Give
   every character their own turn and tilt, and alternate the direction down a lineup.
+- **No floating highlight strokes on the face.** A rim light has to sit *on the silhouette
+  edge* or not at all. A stroke a few units inside the contour doesn't read as light — it
+  reads as a scar or a stray line, and it appears on every card at once.
+- **Build the skull as one smooth closed curve** through its width points (crown, temple,
+  cheek, jaw, chin), with tangent-continuous handles — not as separate cubic segments with
+  a straight line across the chin. Segment joins and that flat chin are where "angular"
+  comes from. Faces are round; only the appendages (horns, blades, tusks, frills) are sharp.
 - **A beard attaches below the cheekbone, not under the eye.** Attached high it reads as a
   mask or a balaclava. The top edge sags *below* the nose in the middle and rises to the
   ears at the sides, with a separate narrower moustache a shade lighter than the beard —
